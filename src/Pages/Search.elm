@@ -1,9 +1,12 @@
 module Pages.Search exposing (Model, Msg, page)
 
-import Gen.Params.Search exposing (Params)
+import Gen.Params.Home_ exposing (Params)
+import Gen.Route as Route
+import Html exposing (p, text)
 import Page
 import Request
 import Shared
+import UI exposing (defaultConfig)
 import View exposing (View)
 
 
@@ -50,4 +53,12 @@ update msg model =
 
 view : Model -> View Msg
 view model =
-    View.placeholder "Search"
+    { title = "Spotify - Search"
+    , body =
+        UI.layout
+            { defaultConfig
+                | route = Route.Search
+                , mainTagContent =
+                    [ p [] [ text "Search" ] ]
+            }
+    }

@@ -1,7 +1,7 @@
 module Pages.Home_ exposing (Model, Msg, page)
 
 import Gen.Params.Home_ exposing (Params)
-import Gen.Route as Route exposing (Route)
+import Gen.Route as Route
 import Html exposing (Html, div, p, text)
 import Html.Attributes exposing (attribute, class, id, src, style)
 import Page
@@ -54,12 +54,12 @@ update msg model =
 
 view : Model -> View Msg
 view model =
-    { title = "Johann - Home"
+    { title = "Spotify - Home"
     , body =
         UI.layout
             { defaultConfig
                 | route = Route.Home_
                 , mainTagContent =
-                    [ p [] [ text "test" ] ]
+                    [ p [] [ text "Home" ] ]
             }
     }

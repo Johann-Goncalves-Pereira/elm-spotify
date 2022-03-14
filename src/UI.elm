@@ -4,6 +4,7 @@ import Components.Svg as Svg
 import Gen.Route as Route exposing (Route)
 import Html exposing (Attribute, Html, a, div, header, main_, nav, section, text)
 import Html.Attributes exposing (attribute, class, classList, href, id)
+import Regex
 
 
 
@@ -19,10 +20,11 @@ type alias Model msg =
     }
 
 
-type alias Link =
+type alias Link msg =
     { routeStatic : Route
     , routeReceived : Route
     , routeName : String
+    , svgLink : Maybe (Html msg)
     }
 
 
@@ -32,15 +34,16 @@ defaultConfig =
     , mainTagContent = []
     , mainTagAttrs = []
     , playerTagContent = []
-    , playingMusicName = ""
+    , playingMusicName = "music"
     }
 
 
-defaultLink : Link
+defaultLink : Link msg
 defaultLink =
     { routeStatic = Route.Home_
     , routeReceived = Route.Home_
     , routeName = ""
+    , svgLink = Nothing
     }
 
 
@@ -80,11 +83,23 @@ caseNamePage route =
             "Not Found"
 
 
+userReplace : String -> (Regex.Match -> String) -> String -> String
+userReplace userRegex replacer string =
+    case Regex.fromString userRegex of
+        Nothing ->
+            string
 
--- View
+        Just regex ->
+            Regex.replace regex replacer string
 
 
-viewLink : Link -> Html msg
+machClass : String -> String
+machClass string =
+    userReplace "[ ]" (\_ -> "-") string
+        |> String.toLower
+
+
+viewLink : Link msg -> Html msg
 viewLink model =
     a
         [ href <| Route.toHref model.routeStatic
@@ -95,7 +110,9 @@ viewLink model =
               )
             ]
         ]
-        [ text model.routeName ]
+        [ Maybe.withDefault (text "") model.svgLink
+        , text model.routeName
+        ]
 
 
 layout : Model msg -> List (Html msg)
@@ -103,15 +120,22 @@ layout model =
     let
         mainClass : Attribute msg
         mainClass =
-            class <| "main--" ++ caseNamePage model.route
+            classList
+                [ ( "main-content", True )
+                , ( "main--" ++ caseNamePage model.route, True )
+                ]
     in
     [ div
         [ id "root"
-        , classList [ ( "scroll", True ), ( "root--" ++ caseNamePage model.route, True ) ]
+        , classList [ ( "scroll", True ), ( "root--" ++ machClass (caseNamePage model.route), True ) ]
         ]
         [ viewHeader model
         , main_ (mainClass :: model.mainTagAttrs) model.mainTagContent
-        , section [ class "player", attribute "aria-labelledby" model.playingMusicName ] model.playerTagContent
+        , section
+            [ class "main-player"
+            , attribute "aria-labelledby" model.playingMusicName
+            ]
+            model.playerTagContent
         ]
     ]
 
@@ -127,18 +151,46 @@ viewHeader model =
                     | routeName = caseNamePage Route.Home_
                     , routeStatic = Route.Home_
                     , routeReceived = model.route
+                    , svgLink = Just Svg.home
                 }
             , viewLink
                 { defaultLink
                     | routeName = caseNamePage Route.Search
                     , routeStatic = Route.Search
                     , routeReceived = model.route
+                    , svgLink = Just Svg.search
                 }
             , viewLink
                 { defaultLink
                     | routeName = caseNamePage Route.YourLibrary
                     , routeStatic = Route.YourLibrary
                     , routeReceived = model.route
+                    , svgLink = Just Svg.books
+                }
+            ]
+
+        -- For now this is a static page
+        , nav [ class "main-header__nav" ]
+            [ viewLink
+                { defaultLink
+                    | routeName = caseNamePage Route.Home_
+                    , routeStatic = Route.Home_
+                    , routeReceived = model.route
+                    , svgLink = Just <| Svg.plus Svg.SmallPlus
+                }
+            , viewLink
+                { defaultLink
+                    | routeName = caseNamePage Route.Search
+                    , routeStatic = Route.Search
+                    , routeReceived = model.route
+                    , svgLink = Just Svg.search
+                }
+            , viewLink
+                { defaultLink
+                    | routeName = caseNamePage Route.YourLibrary
+                    , routeStatic = Route.YourLibrary
+                    , routeReceived = model.route
+                    , svgLink = Just Svg.books
                 }
             ]
         ]
