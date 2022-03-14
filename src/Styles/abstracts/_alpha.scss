@@ -1,7 +1,7 @@
 //? https://codyhouse.co/blog/post/how-to-combine-sass-color-functions-and-css-variables
 //* Function that create the hsla variables;
 
-@function hsl-a($color, $opacity) {
+@function alpha($color, $opacity) {
     $color: str-replace($color, "var(");
     $color: str-replace($color, ")");
     $color-h: var(#{$color + "-h"});
