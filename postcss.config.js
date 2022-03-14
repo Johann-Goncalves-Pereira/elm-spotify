@@ -3,7 +3,12 @@ module.exports = {
     autoprefixer: {},
     doiuse: {},
     cssnano: {
-      preset: "cssnano-preset-default",
+      preset: [
+        "default",
+        {
+          cssDeclarationSorter: false,
+        },
+      ],
     },
     "postcss-color-alpha": {},
     "postcss-custom-media": {},
