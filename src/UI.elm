@@ -103,9 +103,9 @@ viewLink : Link msg -> Html msg
 viewLink model =
     a
         [ href <| Route.toHref model.routeStatic
-        , class "main-header__links"
         , classList
-            [ ( "main-header__links--current-page"
+            [ ( "main-header__links", True )
+            , ( "main-header__links--current-page"
               , isRoute model.routeReceived model.routeStatic
               )
             ]
@@ -170,27 +170,10 @@ viewHeader model =
             ]
 
         -- For now this is a static page
-        , nav [ class "main-header__nav" ]
-            [ viewLink
-                { defaultLink
-                    | routeName = caseNamePage Route.Home_
-                    , routeStatic = Route.Home_
-                    , routeReceived = model.route
-                    , svgLink = Just <| Svg.plus Svg.SmallPlus
-                }
-            , viewLink
-                { defaultLink
-                    | routeName = caseNamePage Route.Search
-                    , routeStatic = Route.Search
-                    , routeReceived = model.route
-                    , svgLink = Just Svg.search
-                }
-            , viewLink
-                { defaultLink
-                    | routeName = caseNamePage Route.YourLibrary
-                    , routeStatic = Route.YourLibrary
-                    , routeReceived = model.route
-                    , svgLink = Just Svg.books
-                }
-            ]
+        , List.map
+            (\( svg, name ) ->
+                a [ class "main-header__links", href "#" ] [ svg, text name ]
+            )
+            [ ( Svg.plus Svg.SmallPlus, "Create Playlist" ), ( Svg.heart, "Liked Songs" ), ( Svg.signal, "Your Episodes" ) ]
+            |> nav [ class "main-header__nav" ]
         ]
