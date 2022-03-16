@@ -1,7 +1,7 @@
 {
   "name": "elm-vite",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.2.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -14,7 +14,6 @@
     "@types/node": "^17.0.21",
     "autoprefixer": "^10.4.2",
     "cssnano": "^5.1.4",
-    "cssnano-preset-default": "^5.2.4",
     "doiuse": "^4.4.1",
     "elm-spa": "^6.0.4",
     "elm-tooling": "^1.7.0",
