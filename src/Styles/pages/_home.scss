@@ -1,0 +1,153 @@
+@use "../abstracts/" as *;
+
+//? root on the page main
+.root--home {
+}
+
+.main--home {
+	.main-playlist {
+		padding: 1rem 1.75rem;
+
+		background-image: linear-gradient(180deg, var(--teal-7) -150%, transparent);
+
+		.header {
+			display: flex;
+			justify-content: space-between;
+
+			&__btm-ctnr {
+				display: inherit;
+				align-items: flex-start;
+				gap: 1rem;
+
+				&__arrows {
+					$scale: scale(0.9);
+
+					border-radius: var(--radius-round);
+
+					filter: brightness(1.1);
+					padding: 0.5em;
+
+					background-color: var(--clr-surface-0);
+
+					transform: $scale;
+
+					&:last-child {
+						transform: rotate(180deg) $scale;
+						opacity: 0.7;
+					}
+				}
+			}
+
+			&__user-ctnr {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 1em;
+
+				filter: brightness(1.1);
+
+				padding: 0.25em;
+				padding-right: 0.875em;
+				border-radius: var(--radius-round);
+
+				height: 2.75em;
+				width: 18em;
+				background-color: var(--clr-surface-0);
+
+				&__img {
+					border-radius: inherit;
+
+					height: 100%;
+					width: auto;
+				}
+
+				&__heading {
+					font-size: 1.1em;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+
+				& > svg {
+					$s: 18px;
+					width: $s;
+				}
+			}
+		}
+
+		&__heading {
+			display: block;
+			font-size: 1.875rem;
+			margin-block: 0.75em;
+		}
+
+		.playlist {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.5rem;
+
+			&__wrapper {
+				$img-size: 5rem;
+				display: grid;
+				align-items: center;
+				gap: 1.25em;
+				grid-template-columns: $img-size 1fr 3.5rem;
+
+				border-radius: var(--radius-conditional-2);
+
+				height: $img-size;
+
+				background-color: alpha(var(--clr-text-0), 0.1);
+				backdrop-filter: blur(5px);
+
+				overflow: hidden;
+
+				&:not(:hover) {
+					&.playlist__wrapper {
+						$ts: background-color 200ms ease-in 20ms;
+						transition: $ts;
+
+						&__player {
+							transition: $ts;
+						}
+					}
+				}
+
+				&:hover {
+					&.playlist__wrapper {
+						background-color: alpha(var(--clr-text-0), 0.125);
+
+						&__player {
+							opacity: 1;
+						}
+					}
+				}
+
+				&__img {
+					height: inherit;
+					box-shadow: 0 0 16px -4px var(--clr-surface-0);
+
+					user-select: none;
+				}
+
+				&__album-name {
+					font-weight: 500;
+					user-select: none;
+				}
+
+				&__player {
+					$s: 2.75rem;
+					width: $s;
+					height: $s;
+
+					border-radius: var(--radius-round);
+
+					filter: brightness(1.1);
+					background-color: var(--clr-brand-0);
+
+					opacity: 0;
+				}
+			}
+		}
+	}
+}

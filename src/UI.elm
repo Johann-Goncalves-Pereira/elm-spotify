@@ -2,7 +2,7 @@ module UI exposing (Model, defaultConfig, layout)
 
 import Components.Svg as Svg
 import Gen.Route as Route exposing (Route)
-import Html exposing (Attribute, Html, a, button, div, footer, header, img, main_, nav, section, span, text)
+import Html exposing (Attribute, Html, a, button, div, footer, h1, header, img, main_, nav, section, span, text)
 import Html.Attributes exposing (alt, attribute, class, classList, href, id, src, type_)
 import Regex
 
@@ -118,7 +118,7 @@ layout model =
         mainClass =
             classList
                 [ ( "main-content", True )
-                , ( "main--" ++ caseNamePage model.route, True )
+                , ( "main--" ++ machClass (caseNamePage model.route), True )
                 ]
     in
     [ div
@@ -141,14 +141,14 @@ viewPlayer model =
     in
     section
         [ class "main-player"
-        , attribute "aria-labelledby" "musicPlaying"
+        , attribute "aria-labelledby" "music-playing-heading"
         ]
         [ header [ class "header" ]
             [ div [ class "header__img" ]
-                [ img [ src "https://picsum.photos/500", alt "Album Photo" ] []
+                [ img [ src "https://picsum.photos/200", alt "Album Photo" ] []
                 ]
             , div [ class "header__names" ]
-                [ a [ href "#", id "musicPlaying" ] [ text "Dernière danse" ]
+                [ h1 [] [ a [ href "#", id "music-playing-heading" ] [ text "Dernière danse" ] ]
                 , a [ href "#" ] [ text "Johann" ]
                 ]
             , button [ type_ "button" ] [ Svg.heart ]
@@ -165,8 +165,8 @@ viewPlayer model =
                 [ span [ class "player__range__time" ] [ text "0:00" ]
                 , span [ class "player__range__line", musicRand 74 ]
                     [ div [ class "line" ]
-                        [ div [ class "line__hidden"]
-                            [ span [ class "line__hidden__state"] []
+                        [ div [ class "line__hidden" ]
+                            [ span [ class "line__hidden__state" ] []
                             ]
                         ]
                     ]

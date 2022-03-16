@@ -1,100 +1,122 @@
 @use "../abstracts/" as *;
 
 body {
-    color: var(--clr-text-0);
-    background-color: var(--clr-surface-0);
+	color: var(--clr-text-0);
+	background-color: var(--clr-surface-0);
 }
 
 //! Main div with all the things
 #root {
-    //? Now #root is the new base
-    position: absolute;
-    inset: 0;
+	//? Now #root is the new base
+	position: absolute;
+	inset: 0;
 
-    font-family: "Fredoka", spotify-circular, spotify-circular-cyrillic, spotify-circular-arabic,
-        spotify-circular-hebrew, "Helvetica Neue", helvetica, arial, "Hiragino Kaku Gothic Pro", Meiryo, "MS Gothic",
-        sans-serif;
+	font-family: "Fredoka", spotify-circular, spotify-circular-cyrillic, spotify-circular-arabic, spotify-circular-hebrew,
+		"Helvetica Neue", helvetica, arial, "Hiragino Kaku Gothic Pro", Meiryo, "MS Gothic", sans-serif;
 
-    display: grid;
-    grid-template-areas:
-        "main-header main-content"
-        "main-player main-player";
-    grid-template-columns: 13.125rem 1fr;
-    grid-template-rows: 1fr 5.625rem;
+	color: var(--clr-text-0);
+
+	display: grid;
+	grid-template-areas:
+		"main-header main-content"
+		"main-player main-player";
+	grid-template-columns: 13.125rem 1fr;
+	grid-template-rows: 1fr 5.625rem;
 }
 
 //& Base structure
 .main {
-    &-header {
-        grid-area: main-header;
-        z-index: var(--layer-1);
-    }
-    &-content {
-        grid-area: main-content;
-        background-color: var(--clr-surface-1);
-        z-index: var(--layer-2);
-    }
-    &-player {
-        grid-area: main-player;
-        border-top: 2px solid var(--clr-surface-2);
-        background-color: var(--clr-surface-1);
-        z-index: var(--layer-3);
-    }
+	&-header {
+		grid-area: main-header;
+		z-index: var(--layer-1);
+	}
+	&-content {
+		grid-area: main-content;
+		background-color: var(--clr-surface-1);
+		z-index: var(--layer-2);
+	}
+	&-player {
+		grid-area: main-player;
+		box-shadow: 0 -2px 0 0 var(--clr-surface-2);
+		background-color: var(--clr-surface-1);
+		z-index: var(--layer-3);
+	}
 }
 
 svg {
-    fill: var(--gray-0);
+	fill: var(--gray-0);
 }
+
 .svg {
-    &-squad {
-        $size: 1.25rem;
-        border-radius: 2px;
-        display: flex;
-        place-content: center;
+	&-squad {
+		$size: 1.25rem;
+		border-radius: 2px;
+		display: flex;
+		place-content: center;
 
-        width: $size;
-        height: $size;
+		width: $size;
+		height: $size;
 
-        background-color: alpha(var(--clr-text-0), 0.8);
+		background-color: alpha(var(--clr-text-0), 0.8);
 
-        svg {
-            margin: auto;
-            fill: var(--clr-surface-0) !important;
-        }
+		svg {
+			margin: auto;
+			fill: var(--clr-surface-0) !important;
+		}
 
-        &--gradient {
-            $rand: random(
-                $limit: 30,
-            );
+		&--gradient {
+			$rand: random(
+				$limit: 30,
+			);
 
-            background: var(--gradient-#{$rand});
-        }
+			background: var(--gradient-#{$rand});
+		}
 
-        &--green {
-            background-color: var(--clr-brand-3);
-        }
-    }
+		&--green {
+			background-color: var(--clr-brand-3);
+		}
+	}
 }
 
 a {
-    text-decoration: none;
-    color: var(--clr-text-0);
+	text-decoration: none;
+	color: var(--clr-text-0);
 }
 
 button {
-    background: transparent;
-    border: 0;
+	display: grid;
+	align-items: center;
+	justify-content: center;
 
-    padding: 0.25rem;
+	background: transparent;
+	border: 0;
+
+	padding: 0.25rem;
 }
 
 :is(a, button) {
-    filter: brightness(0.75);
-    transition: filter 200ms var(--ease-elastic-1);
+	filter: brightness(0.75);
+	transition: filter 200ms var(--ease-elastic-1);
 
-    cursor: pointer;
+	cursor: pointer;
 
-    &:hover {
-        filter: brightness(1.1);
-    }
+	&:hover {
+		filter: brightness(1.1);
+	}
+}
+
+@for $heading from 1 through 6 {
+	@if $heading < 4 {
+		h#{$heading} {
+			font-weight: 600;
+		}
+	} @else {
+		h#{$heading} {
+			font-weight: 500;
+		}
+	}
+
+	h#{$heading} {
+		color: var(--clr-text-0);
+	}
 }
