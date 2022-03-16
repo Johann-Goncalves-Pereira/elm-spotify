@@ -1,0 +1,103 @@
+.main-player {
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    box-sizing: border-box;
+
+    .header {
+        display: flex;
+        gap: 1.5rem;
+
+        box-sizing: border-box;
+
+        padding: 1em;
+
+        &__img {
+            width: 3.5rem;
+            img {
+                width: 100%;
+            }
+        }
+
+        &__names {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            a {
+                color: var(--clr-text-0);
+                &:first-child {
+                    font-weight: 400;
+                    font-size: 0.875em;
+                }
+
+                &:last-child {
+                    font-weight: 300;
+                    font-size: 0.85em;
+                }
+            }
+        }
+
+        .svg-squad {
+            margin-block: auto;
+            $s: 1.25rem;
+
+            background: transparent;
+
+            svg {
+                width: $s;
+                height: $s;
+                path {
+                    fill: var(--clr-brand-0);
+                }
+            }
+        }
+    }
+
+    .player {
+        display: flex;
+        flex-direction: column;
+        place-content: center;
+
+        &__range {
+            display: inherit;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+
+            &__time {
+                font-size: 0.85em;
+                font-weight: 300;
+            }
+
+            &__line {
+                position: relative;
+
+                border-radius: var(--radius-round);
+
+                height: 4px;
+                width: Max(15rem, 25vw);
+
+                background-color: var(--clr-surface-3);
+
+                overflow: hidden;
+
+                span {
+                    position: absolute;
+                    inset: 0;
+
+                    border-radius: inherit;
+
+                    background-color: var(--clr-brand-0);
+
+                    transform: translateX(var(--music-rand));
+                    transition: transform 200ms ease;
+                }
+            }
+        }
+    }
+}

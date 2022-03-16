@@ -2,8 +2,8 @@ module UI exposing (Model, defaultConfig, layout)
 
 import Components.Svg as Svg
 import Gen.Route as Route exposing (Route)
-import Html exposing (Attribute, Html, a, div, header, main_, nav, section, text)
-import Html.Attributes exposing (attribute, class, classList, href, id)
+import Html exposing (Attribute, Html, a, div, footer, header, img, main_, nav, section, span, text)
+import Html.Attributes exposing (alt, attribute, class, classList, href, id, src)
 import Regex
 
 
@@ -15,8 +15,6 @@ type alias Model msg =
     { route : Route
     , mainTagContent : List (Html msg)
     , mainTagAttrs : List (Attribute msg)
-    , playerTagContent : List (Html msg)
-    , playingMusicName : String
     }
 
 
@@ -33,8 +31,6 @@ defaultConfig =
     { route = Route.Home_
     , mainTagContent = []
     , mainTagAttrs = []
-    , playerTagContent = []
-    , playingMusicName = "music"
     }
 
 
@@ -129,19 +125,47 @@ layout model =
         [ id "root"
         , classList [ ( "scroll", True ), ( "root--" ++ machClass (caseNamePage model.route), True ) ]
         ]
-        [ viewHeader model
+        [ viewSidebar model
         , main_ (mainClass :: model.mainTagAttrs) model.mainTagContent
-        , section
-            [ class "main-player"
-            , attribute "aria-labelledby" model.playingMusicName
-            ]
-            model.playerTagContent
+        , viewPlayer model
         ]
     ]
 
 
-viewHeader : Model msg -> Html msg
-viewHeader model =
+viewPlayer : Model msg -> Html msg
+viewPlayer model =
+    let
+        musicRand : Int -> Attribute msg
+        musicRand percent =
+            attribute "style" <| "--music-rand:" ++ String.fromInt (percent - 100) ++ "%"
+    in
+    section
+        [ class "main-player"
+        , attribute "aria-labelledby" "musicPlaying"
+        ]
+        [ header [ class "header" ]
+            [ div [ class "header__img" ]
+                [ img [ src "https://picsum.photos/500", alt "Album Photo" ] []
+                ]
+            , div [ class "header__names" ]
+                [ a [ href "#", id "musicPlaying" ] [ text "Dernière danse" ]
+                , a [ href "#" ] [ text "Johann" ]
+                ]
+            , Svg.heart
+            ]
+        , div [ class "player" ]
+            [ div [ class "player__range" ]
+                [ span [ class "player__range__time" ] [ text "0:00" ]
+                , span [ class "player__range__line", musicRand 74 ] [ span [] [] ]
+                , span [ class "player__range__time" ] [ text "3:18" ]
+                ]
+            ]
+        , footer [] []
+        ]
+
+
+viewSidebar : Model msg -> Html msg
+viewSidebar model =
     let
         currentPage route =
             if model.route == route then
