@@ -1,42 +1,42 @@
 .main-header {
-    display: flex;
-    flex-direction: column;
-    // gap: rem;
+	display: flex;
+	flex-direction: column;
+	// gap: rem;
 
-    &__nav {
-        display: inherit;
-        flex-direction: inherit;
+	&__nav {
+		display: inherit;
+		flex-direction: inherit;
 
-        & + & {
-            margin-top: 1.5em;
-        }
-    }
+		& + & {
+			margin-top: 1.5em;
+		}
+	}
 
-    &__links {
-        display: flex;
-        align-items: center;
-        gap: 1em;
+	&__links {
+		display: flex;
+		align-items: center;
+		gap: 1em;
 
-        padding-left: 15%;
-        padding-block: 0.5em;
+		padding-left: 15%;
+		padding-block: 0.5em;
 
-        svg {
-            fill: var(--gray-5);
+		svg {
+			fill: var(--gray-5);
 
-            transition: fill 200ms var(--ease-elastic-1);
-        }
+			transition: fill 200ms var(--ease-elastic-1);
+		}
 
-        &--current-page,
-        &:hover {
-            color: var(--gray-1);
-            svg {
-                fill: var(--gray-1);
-            }
-        }
-    }
+		&--current-page,
+		&:hover {
+			color: var(--gray-1);
+			svg {
+				fill: var(--gray-1);
+			}
+		}
+	}
 }
 
 .spotify-logo--text {
-    padding: 1.5rem 2rem;
-    padding-right: 3.25rem;
+	padding: 1.5rem 2rem;
+	padding-right: 3.25rem;
 }
