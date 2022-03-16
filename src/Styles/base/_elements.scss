@@ -71,7 +71,7 @@ svg {
         }
 
         &--green {
-            background-color: hsl(120, 100%, 12%);
+            background-color: var(--clr-brand-3);
         }
     }
 }
