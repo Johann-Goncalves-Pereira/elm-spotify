@@ -7,7 +7,7 @@
     @include defineColorHSL(--clr-surface-3, 0.5, 0%, 33.15%);
 
     @include defineColorHSL(--clr-text-0, 210, 17%, 95.25%);
-    @include defineColorHSL(--clr-text-1, 210, 11%, 71.25%);
+    @include defineColorHSL(--clr-text-1, 210, 11%, 78.25%);
 
     --clr-brand-0: hsl(141, 76%, 48%);
     --clr-brand-1: hsl(141, 73%, 42%);
@@ -22,5 +22,5 @@
     --clr-surface-3: hsl(0.5, 0%, 33.15%);
 
     --clr-text-0: hsl(210, 17%, 95.25%);
-    --clr-text-1: hsl(210, 11%, 71.25%);
+    --clr-text-1: hsl(210, 11%, 78.25%);
 }

@@ -2,8 +2,8 @@ module UI exposing (Model, defaultConfig, layout)
 
 import Components.Svg as Svg
 import Gen.Route as Route exposing (Route)
-import Html exposing (Attribute, Html, a, div, footer, header, img, main_, nav, section, span, text)
-import Html.Attributes exposing (alt, attribute, class, classList, href, id, src)
+import Html exposing (Attribute, Html, a, button, div, footer, header, img, main_, nav, section, span, text)
+import Html.Attributes exposing (alt, attribute, class, classList, href, id, src, type_)
 import Regex
 
 
@@ -137,7 +137,7 @@ viewPlayer model =
     let
         musicRand : Int -> Attribute msg
         musicRand percent =
-            attribute "style" <| "--music-rand:" ++ String.fromInt (percent - 100) ++ "%"
+            attribute "style" <| "--music-rand:" ++ String.fromInt (percent - 110) ++ "%"
     in
     section
         [ class "main-player"
@@ -151,12 +151,25 @@ viewPlayer model =
                 [ a [ href "#", id "musicPlaying" ] [ text "Dernière danse" ]
                 , a [ href "#" ] [ text "Johann" ]
                 ]
-            , Svg.heart
+            , button [ type_ "button" ] [ Svg.heart ]
             ]
         , div [ class "player" ]
-            [ div [ class "player__range" ]
+            [ div [ class "player__controller" ]
+                [ button [ class "player__controller__btm", type_ "button" ] [ Svg.randomPlay ]
+                , button [ class "player__controller__btm", type_ "button" ] [ Svg.forward ]
+                , button [ class "player__controller__btm", type_ "button" ] [ div [ class "circle" ] [ Svg.play Svg.Playing ] ]
+                , button [ class "player__controller__btm", type_ "button" ] [ Svg.forward ]
+                , button [ class "player__controller__btm", type_ "button" ] [ Svg.loopPlay ]
+                ]
+            , div [ class "player__range" ]
                 [ span [ class "player__range__time" ] [ text "0:00" ]
-                , span [ class "player__range__line", musicRand 74 ] [ span [] [] ]
+                , span [ class "player__range__line", musicRand 74 ]
+                    [ div [ class "line" ]
+                        [ div [ class "line__hidden"]
+                            [ span [ class "line__hidden__state"] []
+                            ]
+                        ]
+                    ]
                 , span [ class "player__range__time" ] [ text "3:18" ]
                 ]
             ]
@@ -166,42 +179,12 @@ viewPlayer model =
 
 viewSidebar : Model msg -> Html msg
 viewSidebar model =
-    let
-        currentPage route =
-            if model.route == route then
-                True
-
-            else
-                False
-    in
     header [ class "main-header" ]
         [ Svg.spotify Svg.Robust
-        , nav
-            [ class "main-header__nav" ]
-            [ viewLink
-                { defaultLink
-                    | routeName = caseNamePage Route.Home_
-                    , routeStatic = Route.Home_
-                    , routeReceived = model.route
-                    , svgLink = Just <| Svg.home <| currentPage Route.Home_
-                }
-            , viewLink
-                { defaultLink
-                    | routeName = caseNamePage Route.Search
-                    , routeStatic = Route.Search
-                    , routeReceived = model.route
-                    , svgLink = Just <| Svg.search <| currentPage Route.Search
-                }
-            , viewLink
-                { defaultLink
-                    | routeName = caseNamePage Route.YourLibrary
-                    , routeStatic = Route.YourLibrary
-                    , routeReceived = model.route
-                    , svgLink = Just <| Svg.books <| currentPage Route.YourLibrary
-                }
-            ]
+        , viewSidebarLinkList model
+            |> nav [ class "main-header__nav" ]
 
-        -- For now this is a static page
+        --? For now this is just a placeholder link
         , List.map
             (\( svg, name ) ->
                 a [ class "main-header__links", href "#" ] [ svg, text name ]
@@ -209,3 +192,18 @@ viewSidebar model =
             [ ( Svg.plus Svg.SmallPlus, "Create Playlist" ), ( Svg.heart, "Liked Songs" ), ( Svg.signal, "Your Episodes" ) ]
             |> nav [ class "main-header__nav" ]
         ]
+
+
+viewSidebarLinkList : Model msg -> List (Html msg)
+viewSidebarLinkList model =
+    List.map
+        (\( staticRoute, svgRoute ) ->
+            viewLink
+                { defaultLink
+                    | routeName = caseNamePage staticRoute
+                    , routeStatic = staticRoute
+                    , routeReceived = model.route
+                    , svgLink = Just <| svgRoute <| isRoute model.route staticRoute
+                }
+        )
+        [ ( Route.Home_, Svg.home ), ( Route.Search, Svg.search ), ( Route.YourLibrary, Svg.books ) ]
