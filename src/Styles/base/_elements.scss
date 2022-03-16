@@ -48,7 +48,7 @@ svg {
 .svg {
     &-squad {
         $size: 1.25rem;
-        border-radius: 1px;
+        border-radius: 2px;
         display: flex;
         place-content: center;
 
@@ -78,10 +78,23 @@ svg {
 
 a {
     text-decoration: none;
-    color: var(--gray-5);
-    transition: color 200ms var(--ease-elastic-1);
+    color: var(--clr-text-0);
+}
+
+button {
+    background: transparent;
+    border: 0;
+
+    padding: 0.25rem;
+}
+
+:is(a, button) {
+    filter: brightness(0.75);
+    transition: filter 200ms var(--ease-elastic-1);
+
+    cursor: pointer;
 
     &:hover {
-        color: var(--clr-text-0);
+        filter: brightness(1.1);
     }
 }

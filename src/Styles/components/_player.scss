@@ -30,9 +30,16 @@
 
             a {
                 color: var(--clr-text-0);
+                transition-duration: 0;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
                 &:first-child {
                     font-weight: 400;
                     font-size: 0.875em;
+                    margin-bottom: 0.25em;
                 }
 
                 &:last-child {
@@ -44,13 +51,13 @@
 
         .svg-squad {
             margin-block: auto;
-            $s: 1.25rem;
-
             background: transparent;
 
             svg {
+                $s: 1.25rem;
                 width: $s;
                 height: $s;
+
                 path {
                     fill: var(--clr-brand-0);
                 }
@@ -62,6 +69,50 @@
         display: flex;
         flex-direction: column;
         place-content: center;
+        gap: 0.25em;
+
+        &__controller {
+            display: flex;
+            align-items: center;
+            place-content: center;
+            gap: 1em;
+
+            &__btm {
+                height: min-content;
+
+                &:nth-child(3) {
+                    filter: brightness(1.1);
+                }
+
+                &:nth-child(4) {
+                    transform: rotate(180deg);
+
+                    svg {
+                        position: relative;
+                        top: 3px;
+                    }
+                }
+
+                .circle {
+                    position: relative;
+                    bottom: 2px;
+
+                    display: grid;
+                    align-items: center;
+                    justify-content: center;
+
+                    border-radius: var(--radius-round);
+                    padding: 0.75em;
+
+                    background-color: var(--clr-text-0);
+
+                    svg {
+                        width: 98%;
+                        height: 98%;
+                    }
+                }
+            }
+        }
 
         &__range {
             display: inherit;
@@ -72,30 +123,74 @@
             &__time {
                 font-size: 0.85em;
                 font-weight: 300;
+                color: var(--clr-text-1);
             }
 
             &__line {
-                position: relative;
+                padding: 0.25em 0;
 
-                border-radius: var(--radius-round);
+                .line {
+                    position: relative;
 
-                height: 4px;
-                width: Max(15rem, 25vw);
+                    border-radius: var(--radius-round);
 
-                background-color: var(--clr-surface-3);
+                    height: 4px;
+                    width: Max(15rem, 25vw);
 
-                overflow: hidden;
+                    background-color: var(--clr-surface-3);
 
-                span {
-                    position: absolute;
-                    inset: 0;
+                    &::before {
+                        $s: 14px;
 
-                    border-radius: inherit;
+                        content: none;
+                        position: absolute;
+                        top: 50%;
+                        left: calc(var(--music-rand) + 100%);
 
-                    background-color: var(--clr-brand-0);
+                        transform: translate(-50%, -50%);
 
-                    transform: translateX(var(--music-rand));
-                    transition: transform 200ms ease;
+                        height: $s;
+                        width: $s;
+
+                        border-radius: var(--radius-round);
+                        background-color: var(--clr-text-0);
+
+                        z-index: var(--layer-2);
+                    }
+
+                    &__hidden {
+                        position: absolute;
+                        inset: 0;
+                        overflow: hidden;
+
+                        border-radius: inherit;
+
+                        &__state {
+                            position: absolute;
+                            inset: 0;
+
+                            border-radius: inherit;
+
+                            // background-color: var(--clr-brand-0);
+                            background-color: var(--clr-text-1);
+
+                            transform: translateX(var(--music-rand));
+                            transition: transform 200ms ease;
+                        }
+                    }
+                }
+
+                &:active,
+                &:hover {
+                    .line {
+                        &::before {
+                            content: "";
+                        }
+
+                        &__hidden__state {
+                            background-color: var(--clr-brand-0);
+                        }
+                    }
                 }
             }
         }
