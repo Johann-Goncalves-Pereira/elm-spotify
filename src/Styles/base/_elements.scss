@@ -19,7 +19,7 @@ body {
     grid-template-areas:
         "main-header main-content"
         "main-player main-player";
-    grid-template-columns: 14rem 1fr;
+    grid-template-columns: 13.125rem 1fr;
     grid-template-rows: 1fr 5.625rem;
 }
 
@@ -27,15 +27,18 @@ body {
 .main {
     &-header {
         grid-area: main-header;
+        z-index: var(--layer-1);
     }
     &-content {
         grid-area: main-content;
         background-color: var(--clr-surface-1);
+        z-index: var(--layer-2);
     }
     &-player {
         grid-area: main-player;
         border-top: 2px solid var(--clr-surface-2);
         background-color: var(--clr-surface-1);
+        z-index: var(--layer-3);
     }
 }
 

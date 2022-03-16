@@ -142,6 +142,14 @@ layout model =
 
 viewHeader : Model msg -> Html msg
 viewHeader model =
+    let
+        currentPage route =
+            if model.route == route then
+                True
+
+            else
+                False
+    in
     header [ class "main-header" ]
         [ Svg.spotify Svg.Robust
         , nav
@@ -151,21 +159,21 @@ viewHeader model =
                     | routeName = caseNamePage Route.Home_
                     , routeStatic = Route.Home_
                     , routeReceived = model.route
-                    , svgLink = Just Svg.home
+                    , svgLink = Just <| Svg.home <| currentPage Route.Home_
                 }
             , viewLink
                 { defaultLink
                     | routeName = caseNamePage Route.Search
                     , routeStatic = Route.Search
                     , routeReceived = model.route
-                    , svgLink = Just Svg.search
+                    , svgLink = Just <| Svg.search <| currentPage Route.Search
                 }
             , viewLink
                 { defaultLink
                     | routeName = caseNamePage Route.YourLibrary
                     , routeStatic = Route.YourLibrary
                     , routeReceived = model.route
-                    , svgLink = Just Svg.books
+                    , svgLink = Just <| Svg.books <| currentPage Route.YourLibrary
                 }
             ]
 

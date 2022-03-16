@@ -26,6 +26,7 @@
             transition: fill 200ms var(--ease-elastic-1);
         }
 
+        &--current-page,
         &:hover {
             color: var(--gray-1);
             svg {
@@ -37,4 +38,5 @@
 
 .spotify-logo--text {
     padding: 1.5rem 2rem;
+    padding-right: 3.25rem;
 }
