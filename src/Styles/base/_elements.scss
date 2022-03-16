@@ -14,6 +14,8 @@ body {
 	font-family: "Fredoka", spotify-circular, spotify-circular-cyrillic, spotify-circular-arabic, spotify-circular-hebrew,
 		"Helvetica Neue", helvetica, arial, "Hiragino Kaku Gothic Pro", Meiryo, "MS Gothic", sans-serif;
 
+	color: var(--clr-text-0);
+
 	display: grid;
 	grid-template-areas:
 		"main-header main-content"
@@ -35,7 +37,7 @@ body {
 	}
 	&-player {
 		grid-area: main-player;
-		border-top: 2px solid var(--clr-surface-2);
+		box-shadow: 0 -2px 0 0 var(--clr-surface-2);
 		background-color: var(--clr-surface-1);
 		z-index: var(--layer-3);
 	}
@@ -44,6 +46,7 @@ body {
 svg {
 	fill: var(--gray-0);
 }
+
 .svg {
 	&-squad {
 		$size: 1.25rem;
@@ -81,6 +84,10 @@ a {
 }
 
 button {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+
 	background: transparent;
 	border: 0;
 
@@ -95,5 +102,21 @@ button {
 
 	&:hover {
 		filter: brightness(1.1);
+	}
+}
+
+@for $heading from 1 through 6 {
+	@if $heading < 4 {
+		h#{$heading} {
+			font-weight: 600;
+		}
+	} @else {
+		h#{$heading} {
+			font-weight: 500;
+		}
+	}
+
+	h#{$heading} {
+		color: var(--clr-text-0);
 	}
 }
