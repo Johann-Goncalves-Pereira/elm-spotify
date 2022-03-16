@@ -28,10 +28,7 @@
 
 		&--current-page,
 		&:hover {
-			color: var(--gray-1);
-			svg {
-				fill: var(--gray-1);
-			}
+			filter: brightness(1.1);
 		}
 	}
 }
