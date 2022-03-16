@@ -2,7 +2,7 @@
 
 body {
     color: var(--clr-text-0);
-    background: var(--clr-surface-0);
+    background-color: var(--clr-surface-0);
 }
 
 //! Main div with all the things
@@ -19,7 +19,7 @@ body {
     grid-template-areas:
         "main-header main-content"
         "main-player main-player";
-    grid-template-columns: clamp(13rem, 16vw, 17rem) 1fr;
+    grid-template-columns: 14rem 1fr;
     grid-template-rows: 1fr 5.625rem;
 }
 
@@ -57,6 +57,18 @@ svg {
         svg {
             margin: auto;
             fill: var(--clr-surface-0) !important;
+        }
+
+        &--gradient {
+            $rand: random(
+                $limit: 30,
+            );
+
+            background: var(--gradient-#{$rand});
+        }
+
+        &--green {
+            background-color: hsl(120, 100%, 12%);
         }
     }
 }

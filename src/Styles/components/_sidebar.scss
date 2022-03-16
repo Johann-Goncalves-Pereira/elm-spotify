@@ -1,11 +1,15 @@
 .main-header {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    // gap: rem;
 
     &__nav {
         display: inherit;
         flex-direction: inherit;
+
+        & + & {
+            margin-top: 1.5em;
+        }
     }
 
     &__links {
@@ -32,5 +36,5 @@
 }
 
 .spotify-logo--text {
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem;
 }
