@@ -88,20 +88,26 @@ viewMainPlaylist model =
                 ]
             ]
         , h4 [ class "main-playlist__heading" ] [ text "Good afternoon" ]
-        , List.repeat 6 ( "https://picsum.photos/500", "Liked Songs" )
-            |> List.map
-                (\( photo, album ) ->
-                    div [ class "playlist__wrapper" ]
-                        [ img
-                            [ class "playlist__wrapper__img"
-                            , src photo
-                            , alt <| "Album Photo of " ++ album
-                            ]
-                            []
-                        , h5 [ class "playlist__wrapper__album-name" ] [ text album ]
-                        , button [ class "playlist__wrapper__player" ] [ Svg.play Svg.Playing ]
+        , List.map
+            (\( photo, album ) ->
+                div [ class "playlist__wrapper" ]
+                    [ img
+                        [ class "playlist__wrapper__img"
+                        , src <| "https://picsum.photos/5" ++ String.fromInt (10 * photo)
+                        , alt <| "Album Photo of " ++ album
                         ]
-                )
+                        []
+                    , h5 [ class "playlist__wrapper__album-name" ] [ text album ]
+                    , button [ class "playlist__wrapper__player" ] [ Svg.play Svg.Playing ]
+                    ]
+            )
+            [ ( 1, "Liked Songs" )
+            , ( 2, "Mix Daily 1" )
+            , ( 3, "Mix Daily 2" )
+            , ( 4, "Mix Daily 3" )
+            , ( 5, "Mix Daily 4" )
+            , ( 6, "Mix Daily 5" )
+            ]
             |> div [ class "playlist" ]
         ]
 
@@ -110,30 +116,40 @@ viewPlaylist : Model -> Html Msg
 viewPlaylist model =
     section [ class "playlist-cards" ]
         [ ul [ class "playlist-cards__list--vertical" ] <|
-            List.repeat 9
-                (li [ class "playlist-cards__list--vertical__item" ]
-                    [ h6 [ class "playlist-cards__list--vertical__item__heading" ]
-                        [ text "Shows you might like" ]
-                    , button [ class "playlist-cards__list--vertical__item__more" ]
-                        [ small [] [ text "SEE ALL" ] ]
-                    , ul [ class "playlist-cards__list--horizontal" ] viewPlaylistCards
-                    ]
+            List.map
+                (\x ->
+                    li [ class "playlist-cards__list--vertical__item" ]
+                        [ h6 [ class "playlist-cards__list--vertical__item__heading" ]
+                            [ text "Shows you might like" ]
+                        , button [ class "playlist-cards__list--vertical__item__more" ]
+                            [ small [] [ text "SEE ALL" ] ]
+                        , ul [ class "playlist-cards__list--horizontal" ] <| viewPlaylistCards x
+                        ]
                 )
+                [ 0, 1, 2, 3, 4, 6, 7, 8, 9 ]
         ]
 
 
-viewPlaylistCards : List (Html msg)
-viewPlaylistCards =
-    List.repeat 7
-        (li [ class "item" ]
-            [ img
-                [ class "item__img"
-                , src "https://picsum.photos/300"
-                , alt "Album Photo"
+viewPlaylistCards : Int -> List (Html msg)
+viewPlaylistCards vertical =
+    List.map
+        (\x ->
+            li [ class "item" ]
+                [ div [ class "item__container" ]
+                    [ img
+                        [ class "item__container__img"
+                        , "https://picsum.photos/3"
+                            ++ String.fromInt (x * (10 + vertical))
+                            |> src
+                        , alt "Album Photo"
+                        ]
+                        []
+                    , button [ class "item__container__btm" ]
+                        [ Svg.play Svg.Playing ]
+                    ]
+                , strong [ class "item__album-info--name" ] [ text "Daily Mix 1" ]
+                , p [ class "item__album-info--author" ]
+                    [ text "Johann Gonçalves Pereiras" ]
                 ]
-                []
-            , strong [ class "item__album-info--name" ] [ text "Daily Mix 1" ]
-            , p [ class "item__album-info--author" ]
-                [ text "Johann Gonçalves Pereiras" ]
-            ]
         )
+        [ 1, 2, 3, 4, 5, 6, 7 ]
