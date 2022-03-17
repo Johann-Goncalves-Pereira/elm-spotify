@@ -21,7 +21,7 @@ body {
 		"main-header main-content"
 		"main-player main-player";
 	grid-template-columns: 13.125rem 1fr;
-	grid-template-rows: 1fr 5.625rem;
+	grid-template-rows: calc(100vh - 5.675rem) 5.625rem;
 }
 
 //& Base structure
@@ -118,5 +118,30 @@ button {
 
 	h#{$heading} {
 		color: var(--clr-text-0);
+	}
+}
+
+img {
+	$rand: random(
+		$limit: 30,
+	);
+
+	position: relative;
+
+	overflow: hidden;
+
+	color: transparent;
+
+	z-index: var(--layer-2);
+
+	&::before {
+		content: attr(alt);
+		position: absolute;
+		inset: 2px;
+
+		color: black;
+		background-image: var(--gradient-#{$rand});
+
+		z-index: -1;
 	}
 }

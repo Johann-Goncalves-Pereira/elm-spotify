@@ -3,12 +3,12 @@ module Pages.Home_ exposing (Model, Msg, page)
 import Components.Svg as Svg
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route
-import Html exposing (Html, button, div, h3, h4, h5, header, img, p, section, text)
+import Html exposing (Html, button, div, h3, h4, h5, h6, header, img, li, p, section, small, strong, text, ul)
 import Html.Attributes exposing (alt, attribute, class, id, src, style)
+import List exposing (repeat)
 import Page
 import Request
 import Shared
-import Tuple exposing (second)
 import UI exposing (defaultConfig)
 import View exposing (View)
 
@@ -62,7 +62,9 @@ view model =
             { defaultConfig
                 | route = Route.Home_
                 , mainTagContent =
-                    [ viewMainPlaylist model ]
+                    [ viewMainPlaylist model
+                    , viewPlaylist model
+                    ]
             }
     }
 
@@ -102,3 +104,36 @@ viewMainPlaylist model =
                 )
             |> div [ class "playlist" ]
         ]
+
+
+viewPlaylist : Model -> Html Msg
+viewPlaylist model =
+    section [ class "playlist-cards" ]
+        [ ul [ class "playlist-cards__list--vertical" ] <|
+            List.repeat 9
+                (li [ class "playlist-cards__list--vertical__item" ]
+                    [ h6 [ class "playlist-cards__list--vertical__item__heading" ]
+                        [ text "Shows you might like" ]
+                    , button [ class "playlist-cards__list--vertical__item__more" ]
+                        [ small [] [ text "SEE ALL" ] ]
+                    , ul [ class "playlist-cards__list--horizontal" ] viewPlaylistCards
+                    ]
+                )
+        ]
+
+
+viewPlaylistCards : List (Html msg)
+viewPlaylistCards =
+    List.repeat 7
+        (li [ class "item" ]
+            [ img
+                [ class "item__img"
+                , src "https://picsum.photos/300"
+                , alt "Album Photo"
+                ]
+                []
+            , strong [ class "item__album-info--name" ] [ text "Daily Mix 1" ]
+            , p [ class "item__album-info--author" ]
+                [ text "Johann Gonçalves Pereiras" ]
+            ]
+        )
