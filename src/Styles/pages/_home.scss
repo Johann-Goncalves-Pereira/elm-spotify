@@ -166,7 +166,6 @@
 			&--vertical {
 				display: grid;
 				gap: 1rem;
-				
 				grid-auto-rows: 1fr;
 
 				&__item {
@@ -203,7 +202,7 @@
 
 				display: grid;
 				grid-template-columns: repeat(7, 1fr);
-				gap: 1em;
+				gap: 1.5em;
 
 				.item {
 					display: flex;
@@ -230,6 +229,8 @@
 					&__container {
 						position: relative;
 						margin-bottom: 0.75em;
+						width: 100%;
+						min-height: 8rem;
 
 						&__img {
 							width: 100%;
