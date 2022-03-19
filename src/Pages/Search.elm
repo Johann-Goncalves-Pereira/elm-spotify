@@ -1,5 +1,6 @@
 module Pages.Search exposing (Model, Msg, page)
 
+
 import Components.Svg as Svg
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route
