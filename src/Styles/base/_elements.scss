@@ -11,17 +11,19 @@ body {
 	position: absolute;
 	inset: 0;
 
-	font-family: "Fredoka", spotify-circular, spotify-circular-cyrillic, spotify-circular-arabic, spotify-circular-hebrew,
-		"Helvetica Neue", helvetica, arial, "Hiragino Kaku Gothic Pro", Meiryo, "MS Gothic", sans-serif;
-
-	color: var(--clr-text-0);
-
 	display: grid;
 	grid-template-areas:
 		"main-header main-content"
 		"main-player main-player";
-	grid-template-columns: 13.125rem 1fr;
-	grid-template-rows: calc(100vh - 5.675rem) 5.625rem;
+	grid-template-columns: 13.25rem auto;
+	grid-template-rows: auto max-content;
+
+	height: 100vh;
+
+	color: var(--clr-text-0);
+
+	font-family: "Fredoka", spotify-circular, spotify-circular-cyrillic, spotify-circular-arabic, spotify-circular-hebrew,
+		"Helvetica Neue", helvetica, arial, "Hiragino Kaku Gothic Pro", Meiryo, "MS Gothic", sans-serif;
 }
 
 //& Base structure
