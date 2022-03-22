@@ -1,6 +1,6 @@
 .DS_Store
-.elm-spa
-elm-stuff
+# .elm-spa
+# elm-stuff
 node_modules
 dist
 
@@ -10,7 +10,7 @@ dist
 
 # Elm-Spa
 .DS_Store
-.elm-spa
+# .elm-spa
 elm-stuff
 node_modules
 dist
